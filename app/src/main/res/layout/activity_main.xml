@@ -6,14 +6,47 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".MainActivity">
-
+    <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp" app:srcCompat="@drawable/background"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" android:id="@+id/imageView"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" android:scaleType="centerCrop"
+            app:layout_constraintHorizontal_bias="0.0" app:layout_constraintVertical_bias="1.0"/>
     <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/timeText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="32dp" android:layout_marginStart="32dp" android:layout_marginEnd="32dp"
+            android:textSize="36sp" android:textColor="@android:color/white" android:textAlignment="center"
+            android:background="@color/textBackground" app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintTop_toBottomOf="@+id/dataText"/>
+    <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/dataText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="@+id/imageView"
+            android:layout_marginTop="32dp" android:layout_marginStart="32dp" android:layout_marginEnd="32dp"
+            android:textSize="36sp" android:textColor="@android:color/white" android:textAlignment="center"
+            android:background="@color/textBackground"/>
+    <Button
+            android:text="アラームをセットする"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Hello World!"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
-
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
+            android:id="@+id/setAlarm" android:layout_marginTop="32dp"
+            app:layout_constraintTop_toBottomOf="@+id/timeText" android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"/>
+    <Button
+            android:text="アラームをキャンセルする。"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
+            android:id="@+id/setAlarm2" android:layout_marginTop="32dp"
+            app:layout_constraintTop_toBottomOf="@+id/setAlarm" android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp" android:textAlignment="center"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
