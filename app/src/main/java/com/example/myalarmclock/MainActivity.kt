@@ -1,18 +1,34 @@
 package com.example.myalarmclock
 
 import android.app.AlarmManager
+import android.app.KeyguardManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.format.DateFormat
+import android.view.WindowManager.LayoutParams.*
 import android.widget.Toast
-import androidx.core.content.getSystemService
+import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
+import java.text.ParseException
+import java.text.SimpleDateFormat
 import java.util.*
 
-class MainActivity : AppCompatActivity(), TimeAlertDialog.Listener{
+class MainActivity : AppCompatActivity(), TimeAlertDialog.Listener
+    ,DatePickerFragment.OnDateSelectedListener
+    ,TimePickerFragment.OnTimeSelectedListener {
+
+    override fun onSelected(year: Int, month: Int, date: Int) {
+        val c = Calendar.getInstance()
+        c.set(year, month, date)
+        dateText.text = DateFormat.format("yyyy/MM/dd", c)
+    }
+    override fun onSelected(hourOfDay: Int, minute: Int) {
+        timeText.text = "%1$02d:%2$02d".format(hourOfDay,minute)
+    }
+
     override fun getup() {
         finish()
     }
