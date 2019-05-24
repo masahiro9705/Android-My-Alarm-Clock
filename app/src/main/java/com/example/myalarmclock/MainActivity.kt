@@ -49,13 +49,35 @@ class MainActivity : AppCompatActivity(), TimeAlertDialog.Listener
         }
         setContentView(R.layout.activity_main)
         setAlarm.setOnClickListener{
-            val calendar = Calendar.getInstance()
-            calendar.timeInMillis = System.currentTimeMillis()
-            calendar.add(Calendar.SECOND,5)
-            setAlarmManager(calendar)
+            val date = "${dateText.text} ${timeText.text}".toDate()
+            when {
+                date !=null -> {
+                    val calendar = Calendar.getInstance()
+                    calendar.time = date
+                    setAlarmManager(calendar)
+                    Toast.makeText(
+                        this,"アラームをセットしました",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                else -> {
+                    Toast.makeText(
+                        this, "日付の形式が正しくありません",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
         }
         cancelAlarm.setOnClickListener{
             cancelAlarmManeger()
+        }
+        dateText.setOnClickListener {
+            val dialog = DatePickerFragment()
+            dialog.show(supportFragmentManager, "date_dialog")
+        }
+        timeText.setOnClickListener {
+            val dialog = TimePickerFragment()
+            dialog.show(supportFragmentManager, "time_dialog")
         }
     }
     private fun setAlarmManager(calendar: Calendar) {
@@ -81,5 +103,15 @@ class MainActivity : AppCompatActivity(), TimeAlertDialog.Listener
         val intent = Intent(this, AlarmBroadcastReceiver::class.java)
         val pending = PendingIntent.getBroadcast(this, 0, intent, 0)
         am.cancel(pending)
+    }
+
+    private fun String.toDate(pattern: String = "yyyy/MM/dd HH:mm"): Date? {
+        return try {
+            SimpleDateFormat(pattern).parse(this)
+        }catch (e: IllegalAccessException) {
+            return null
+        }catch (e : ParseException) {
+            return null
+        }
     }
 }
