@@ -44,6 +44,29 @@ class MainActivity : AppCompatActivity(), TimeAlertDialog.Listener
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if(intent?.getBooleanExtra("onReceive", false) == true) {
+            when {
+                Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1 -> {
+                    setShowWhenLocked(true)
+                    setTurnScreenOn(true)
+                    val keyguardManager =
+                        getSystemService(Context.KEYGUARD_SERVICE) as KeyguardManager
+                    keyguardManager.requestDismissKeyguard(this, null)
+                }
+                Build.VERSION.SDK_INT >= Build.VERSION_CODES.O -> {
+                    window.addFlags(
+                        FLAG_TURN_SCREEN_ON or  FLAG_SHOW_WHEN_LOCKED
+                    )
+                    val keyguardManager =
+                        getSystemService(Context.KEYGUARD_SERVICE) as KeyguardManager
+                    keyguardManager.requestDismissKeyguard(this, null)
+                }
+                else ->
+                    window.addFlags(
+                        FLAG_TURN_SCREEN_ON or
+                                FLAG_SHOW_WHEN_LOCKED or FLAG_DISMISS_KEYGUARD
+                    )
+            }
+
             val dialog = TimeAlertDialog()
             dialog.show(supportFragmentManager, "alert_dialog")
         }
